@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigurnost</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js" integrity="sha512-a+SUDuwNzXDvz4XrIcXHuCf089/iJAoN4lmrXJg18XnduKK6YlDHNRalv4yd1N40OKI80tFidF+rqTFKGPoWFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <style>
+        h1 {
+            text-align: center
+        }
+
+        .line {
+            border-top: 1.6px solid #a60808;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+<body>
+    <h1>drugi projekt</h1>
+
+
+    <h2>Cross-site scripting (XSS)</h2>
+    <p> 
+        <input type="checkbox" id="checkboxXSS" name="checkboxXSS">
+        <label for="checkboxXSS">Uključite ranjivost</label>
+    </p>
+
+    <p>
+        <img src="photos/red-almond-blossoms-vincent-van-gogh.jpg" alt="van Gogh red almond blossoms" width="300" height="200">
+    </p>
+
+    <p>
+        
+            <label for="XSSinput">Ovdje napišite što mislite o ovome umjetničkom djelu!</label>
+            <input type="text" id="XSSinput" width=300px>
+
+            <button type="button" onclick="saveComments()">Unesi komentar!</button>
+        
+
+    </p>
+
+
+    <div class="line"></div>
+
+    <h2>Nesigurna pohrana osjetljivih podataka (Sensitive Data Exposure)</h2>
+    <p> 
+        <input type="checkbox" id="checkboxSDE" name="checkboxSDE">
+        <label for="checkboxSDE">Uključite ranjivost</label>
+    </p>
+
+    <p>
+            <label for="password">Tajna poruka:</label>
+            <input type="password" id="password" name="password">
+    </p>
+
+    <p>
+        <button id="buttonSDE" onclick="goToSD()">Prikaži stranicu s osjetljivim podatcima (GDPR) </button>
+
+    </p>
+
+    <script>
+        //promjena stanja checkboxa za XSS
+        var checkboxXSS = document.getElementById("checkboxXSS");
+        checkboxXSS.addEventListener("change", function() {
+            var labelXSS = document.querySelector('label[for="checkboxXSS"]');
+            if (checkboxXSS.checked) {
+                labelXSS.innerHTML = "Ranjivost uključena"; // Promijeni label kada je checkbox označen
+            } else {
+                labelXSS.innerHTML = "Uključite ranjivost";
+            }
+        });
+
+        function saveComments() {
+            // Dohvati unos iz input polja
+            var unos = document.getElementById('XSSinput').value;
+
+            var checkboxXSS = document.getElementById("checkboxXSS");
+            var checkXSS = 0;
+
+            if (checkboxXSS.checked) {
+                checkXSS = 1;
+            } else {
+                checkXSS = 0;
+            }
+
+            localStorage.setItem('checkXSS', checkXSS);
+
+            // Pohrani unos u localStorage
+            localStorage.setItem('comment', unos);
+
+            window.location.href = 'XSS.html';
+
+        }
+
+
+        //promjena stanja checkboxa za SDE i prikaz podataka 
+        var checkboxSDE = document.getElementById("checkboxSDE");
+
+        checkboxSDE.addEventListener("change", function() {
+            var labelSDE = document.querySelector('label[for="checkboxSDE"]');
+            if (checkboxSDE.checked) {
+                labelSDE.innerHTML = "Ranjivost uključena"; // Promijeni tekst labela kada je checkbox označen
+            } else {
+                labelSDE.innerHTML = "Uključite ranjivost";
+            }
+        });
+
+
+        //funkcija za prikazivanje/isključivanje gumba na temelju stanja checkboxa
+        /*function showButton() {
+            var checkbox = document.getElementById("checkboxSDE");
+            var buttonSDE = document.getElementById("buttonSDE");
+
+            if (checkbox.checked) {
+                buttonSDE.style.display = "block"; //prikazuje gumb ako je checkbox označen
+            } else {
+                buttonSDE.style.display = "none"; //skriva gumb ako checkbox nije označen
+            }
+        } */
+
+
+        function goToSD() {
+            // Dohvati unos iz input polja
+            //var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            var checkboxSDE = document.getElementById("checkboxSDE");
+
+            if (checkboxSDE.checked) {
+                //localStorage.setItem('username', username);
+                localStorage.setItem('password', password);
+            } else {
+                // Koristi SHA256 algoritam za hashiranje imena i lozinke
+                //var hashUsername = CryptoJS.SHA256(username).toString();
+                var hashPassword = CryptoJS.SHA256(password).toString();
+                //localStorage.setItem('username', hashUsername);
+                localStorage.setItem('password', hashPassword);
+            }
+
+            window.location.href = 'SD.html'; 
+
+           
+    }
+
+    </script>   
+    
+</body>
+</html>
+

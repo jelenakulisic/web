@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensitive Data</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Sensitive data</h1>
+
+<table>
+    <tr>
+        <th>Tajna poruka</th>
+    </tr>
+    <tr>
+        <td id="password"></td>
+    </tr>
+
+<script>
+    //var username = localStorage.getItem('username');
+    var password = localStorage.getItem('password');
+
+    /// Prikazi podatke
+    //var korisnickoIme = document.getElementById('username');
+    //korisnickoIme.innerHTML = username 
+    var lozinka = document.getElementById('password');
+    lozinka.innerHTML = password 
+
+
+    /*var savedData = JSON.parse(localStorage.getItem('savedData')) || [];
+
+    // Prikazi podatke u tablici
+    var table = document.querySelector('table');
+    savedData.forEach(function(data) {
+        var row = table.insertRow();
+        var cellUsername = row.insertCell(0);
+        var cellPassword = row.insertCell(1);
+        cellUsername.innerHTML = data.username;
+        cellPassword.innerHTML = data.password;
+    }); */
+
+</script>
+
+</body>
+</html>

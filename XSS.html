@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potvrda</title>
+</head>
+<body>
+
+<h1>Potvrda o unosu komentara:</h1>
+
+<div id="prikazPodatka"></div>
+
+<script>
+    // Dohvati uneseni podatak iz localStorage
+    var uneseniKomentar = localStorage.getItem('comment');
+
+    var checkXSS = localStorage.getItem('checkXSS');
+
+    if (checkXSS == 0) {
+        document.write('<p>Uneseni komentar: "' + escapeHTML(uneseniKomentar) + '" spremljen!</p>');
+    } else {
+        document.write('<p>Uneseni komentar: "' + uneseniKomentar + '" spremljen!</p>');
+    }
+
+    function escapeHTML(text) {
+        var div = document.createElement('div');
+        div.innerText = text;
+        return div.innerHTML;
+    }
+
+
+</script>
+
+</body>
+</html>
