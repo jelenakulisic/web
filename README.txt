@@ -1,7 +1,5 @@
 Drugi projekt iz Web2
 
-###########################################################################
-
 Adresa git repozitorija s web-aplikacijom  https://github.com/jelenakulisic/web
 
 Adresa web-aplikacije https://sigurnost-web-p3xh.onrender.com
